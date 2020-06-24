@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "AdminOrder";
+}
+
+<div class="container">
+
+    <div class="text-right">
+        @Html.ActionLink("Log OUT", "LogOut", "Login", new { }, new { })
+    </div>
+
+    <h2>    @Html.ActionLink("All Orders", "AdminOrder", "Order", new { }, new { })</h2>
+
+    <table id="OrderTable" class="display table OrderTable">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Customer Id</th>
+                <th>Customer Name</th>
+                <th>Payment Status</th>
+                <th>Payment Mode</th>
+                <th>Payment Reference</th>
+                <th>Payment Amount</th>
+                <th>Order Date</th>
+                <th>Shipped Date</th>
+                <th>Expected Delivery Date</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(function () {
+        debugger;
+        $.getJSON("/Order/GetOrders", function (data) {
+            $(".OrderTable").DataTable({
+                'rowGroup': {
+                    'dataSrc': data
+                },
+                "data": data,
+                'scrollY': 450,
+                "columns": [
+                    {
+                        "data": "OrderId",
+                        "render": function (id) {
+                            var url = '<a href="/Order/AdminOrderItem?OrderId=' + id + '" >' + id + '</a>'
+                            return url;
+                        }
+                    },
+                    { "data": "CustomerId" },
+                    { "data": "CustomerName" },
+                    { "data": "PaymentStatus" },
+                    { "data": "PaymentMode" },
+                    {
+                        "data": "PaymentReference",
+                        "sortable": false,
+                        'searchable': false
+                    },
+                    {
+                        "data": "PaymentAmount",
+                        "render": function (amount) {
+
+                            return amount;
+                        }
+                    },
+                    {
+                        "data": "OrderDate",
+                        "render": function (jsonDate) {
+                            var date = new Date(parseInt(jsonDate.substr(6)));
+                            var month = date.getMonth() + 1;
+                            return date.getDate() + "/" + month + "/" + date.getFullYear();
+                        }
+                    },
+                    {
+                        "data": "ShippedDate",
+                        "render": function (jsonDate) {
+                            var date = new Date(parseInt(jsonDate.substr(6)));
+                            var month = date.getMonth() + 1;
+                            return date.getDate() + "/" + month + "/" + date.getFullYear();
+                        }
+                    },
+                    {
+                        "data": "ExpectedDeliveryDate",
+                        "render": function (jsonDate) {
+                            var date = new Date(parseInt(jsonDate.substr(6)));
+                            var month = date.getMonth() + 1;
+                            return date.getDate() + "/" + month + "/" + date.getFullYear();
+                        }
+                    }
+                ]
+            });
+        })
+
+    })
+
+</script>
+
+@*"ajax": {
+        "url": "/Order/GetOrders",
+        "type": "GET",
+        "datatype": "json"
+    },
+    //"ajax":"/Order/GetOrders",*@

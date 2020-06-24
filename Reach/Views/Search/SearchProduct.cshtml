@@ -1,0 +1,136 @@
+﻿@using Reach.Models
+@model  SearchKey
+@{
+    ViewBag.Title = "Show2";
+}
+
+<h2>Show2</h2>
+
+
+<div class="container">
+    <div class="jumbotron">
+        @*<form action="/" method="post" class="align-content-center" id="form1">
+            <div class="form-group form-inline">
+                <select label="Category" name="Category" id="Category" class="form-control custom-select">
+                    <optgroup label="Category">
+
+                        <option value="1">All</option>
+                        <option value="2">Outfits</option>
+                        <option value="3">Shoes</option>
+
+                    </optgroup>
+
+                </select>
+                <input class="form-control" type="text" name="Key" id="Key" />
+                <input class="form-control" type="button" name="searchBtn" value="search" onclick="showProduct()" />
+
+            </div>
+        </form>*@
+        <div id="hello">
+            @using (Html.BeginForm("GetProduct", "Product", FormMethod.Post, new { @id = "form2" }))
+            {
+                <div class="form-group form-inline">
+                    @Html.DropDownListFor(model => model.Category, Enumerable.Empty<SelectListItem>(), new { @class = "form-control custom-select" })
+                    @Html.TextBoxFor(model => model.Key, new { @class = "form-control" })
+                    <input class="form-control" type="submit" name="searchBtn" value="search" onsubmit="showProduct()" />
+                </div>
+            }
+
+        </div>
+
+
+    </div>
+
+    <div class="jumbotron">
+
+        <div class="row">
+
+        </div>
+        <div id="contentArea">
+
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        fetchCategories2()
+        $("#form2").submit(function (event) {
+            showProduct();
+            event.preventDefault();
+        })
+    })
+    debugger
+    $(window).on('load',showProduct)
+    Fval = null;
+    function fetchCategories2() {
+        $.getJSON("/Product/FetchCategories", function (result) {
+            debugger
+            $.each(result, function (i) {
+                var option = '<option>' + result[i] + '</option>';
+                $('#Category').append(option)
+                //$('#NavCategory').append(option)
+            })
+        })
+    }
+    //var submit = $("Form").submit(function (event) {
+    //   debugger  
+    //    var Fval = $("Form").serialize()
+    //    showProduct()
+    //    event.preventDefault();
+    //})
+  
+    function showProduct() {
+        debugger
+        var Fval = $("#form2").serialize()
+        //alert(Fval);
+        $.getJSON('/Product/GetProduct',Fval, function (lstpm) {
+            var pm = lstpm;
+            debugger
+            if (lstpm.length > 0) {
+                //alert(lstpm.length);
+                var product='';
+                var productRowStart = '<div  class="row">';
+                var productRowEnd = '</div>';
+                $("#contentArea").empty();
+                $.each(lstpm, function (i) {
+                    if (i%2===0) {
+                        product = product+ productRowStart  ;
+                    }
+                     product =  '<div class="col-sm-4 col-xl-3 col-3 col-lg-3">  ' +
+                        '<div class="card" style="width: 25rem;">' +
+                        '<img src="' + pm[i].Images + '" class="card-img-top" height="250" alt="...">' +
+                        '<div class="card-body">' +
+                        '<h5 class="card-title">' + pm[i].ProductName + '</h5>' +
+                        '<p class="card-text">' + pm[i].DescriptionShort + '</p>' +
+                        '<input type="button"  name="Goto" value="Goto"  class="btn btn-primary  " onclick=" gotoProduct('+pm[i].ProductID+')" />' +
+                            '</div>' +
+                            '</div>' +
+                        '</div>';
+                    if (i % 2 !== 0 || lstpm.length-1==i) {
+                        product = product + productRowEnd
+                    }
+                    
+                    $("#contentArea").append(product)
+                })
+            }
+            else {
+                $("#contentArea").empty();
+                var product = ' <h1>Not Available at this moment :(</h1>'
+                $("#contentArea").append(product)
+            }
+        })
+    }
+    function gotoProduct(e) {
+
+        //alert(e);
+        var url = "/Search/DisplayProduct?Pid=" + e;
+        window.location.href = url
+
+        event.preventDefault()
+    }   
+
+</script>
+
+

@@ -1,0 +1,275 @@
+﻿@using Reach.Models
+@model Reach.Models.Customer
+
+@{
+    ViewBag.Title = "CustomerModel";
+}
+
+<style>
+    form .error {
+        color: red;
+
+    }
+</style>
+
+<div class="container row">
+    <div class="col-xl-8">
+        @using (Html.BeginForm("Guest", "Login",  new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, htmlAttributes: new { @name = "formGuest", @id = "formGuest"  }))
+        {
+        <div class="form-horizontal">
+            <h4>Continue as Guest</h4>
+            <hr />
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Fname, htmlAttributes: new { @class = "control-label col-md-2" })*
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Lname, htmlAttributes: new { @class = "control-label col-md-2" })*
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control" } })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })*
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @type = "digits", @minlength = "10", @maxlength = "12" } })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AltPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AltPhone, new { htmlAttributes = new { @class = "form-control", @type = "digits" } })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })*
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+                    <div>
+                        <span class="text-danger">@ViewBag.alertEmail</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AltEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AltEmail, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })*
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })*
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })*
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Pincode, htmlAttributes: new { @class = "control-label col-md-2" })*
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Pincode, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2 checkbox">Sign Up:</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="checkbox" name="SignUpCheckBox" id="SignUpCheckBox" value="" />
+                </div>
+            </div>
+
+            <div id="SignUpPasswords" class="">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @class = "form-control" } })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @type = "password", @class = "form-control" } })
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group ">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" name="btnLogin" value="Sign Up" id="signUpBtn" class="btn btn-success" />
+                </div>
+            </div>
+
+            <div class="form-group ">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" name="btnLogin" value="Continue as Guest" id="guestBtn" class="btn btn-primary" />
+                </div>
+            </div>
+
+
+        </div>
+        }
+    </div>
+    <div class="col">
+        @using (Html.BeginForm("Guest", "Login", new { ReturnUrl = ViewBag.ReturnUrl }))
+        {
+        <div class="form-horizontal">
+            <h5>Registered Users</h5>
+            <h3>Login Here</h3>
+            <hr />
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LoginEmailID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LoginEmailID, new { htmlAttributes = new { @class = "form-control", @required = "required", @type = "email" } })
+
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LoginPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LoginPassword, new { htmlAttributes = new { @type = "password", @class = "form-control", @required = "required" } })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+              
+                <div class="col-md-10">
+                    @Html.CheckBoxFor(model => model.RememberMe, new { htmlAttributes = new { @class = "form-control" } })   @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" name="btnLogin" value="Login" class="btn btn-primary" />
+                </div>
+            </div>
+
+            <div>
+                <span class="text-danger">@ViewBag.alert</span>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        //alert("validate");
+        //$('form[name="formGuest"]').validate(
+        $('#formGuest').validate(
+            {
+                rules: {
+                    Fname: "required",
+                    Lname: "required",
+                    Phone: {
+                        required: true,
+                        number: true,
+                        minlength: 10,
+                        maxlength:12
+                    },
+                    AltPhone: {
+                        required: false,
+                        number: true,
+                        minlength: 10,
+                        maxlength: 12
+                    },
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    AltEmail: {
+                        required: false,
+                        email: true
+                    },
+                    Address: "required",
+                    City: "required",
+                    State: "required",
+                    Pincode: "required",
+                    Password: {
+                        required: true,
+                        minlength:5
+                    },
+                    ConfirmPassword: {
+                        required: true,
+                        minlength:5,
+                        equalTo: "#Password"
+                    }
+                },
+                messages: {
+                    Fname: "PLease enter your first Name",
+                    Lname: "PLease enter your Last name",
+                    Phone: "PLease enter a valid Phone number",
+                    AltPhone: "PLease enter a valid Phone number",
+                    Email: "PLease enter a valid email address",
+                    AltEmail: "PLease enter a valid email address",
+                    Address: "required",
+                    City: "required",
+                    State: "required",
+                    Pincode: "required",
+                    Password: "Enter a password with minimum 5 characters",
+                    ConfirmPassword: "Passwords are not matching"
+                },
+                submitHandler: function (form) {
+                    alert("submithandler");
+                    form.submit();
+                }
+            });
+
+        var initial = $("#SignUpCheckBox").is(":checked")
+        var passwords = $("#SignUpPasswords")[initial ? "removeClass" : "addClass"]("invisible")
+        var signUpFields = passwords.find("input").attr("disabled", !initial)
+        $("#signUpBtn").attr("disabled", !initial)
+
+        $("#SignUpCheckBox").click(function () {
+            passwords[this.checked ? "removeClass" : "addClass"]("invisible")
+            signUpFields.attr("disabled", !this.checked)
+            $("#guestBtn").attr("disabled",this.checked)
+            $("#signUpBtn").attr("disabled",!this.checked)
+        })
+    })
+</script>

@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "OrderSuccessful";
+}
+
+<div class="text-right">
+    @Html.ActionLink("Log OUT", "LogOut", "Login", new { }, new { })
+</div>
+
+<h2>OrderSuccessful</h2>
+<hr />
+<h5>Order has been placed successfully. </h5>
+
+<h5>Your Order ID: <strong class="text-success"> @ViewBag.OrderId</strong> </h5>
+

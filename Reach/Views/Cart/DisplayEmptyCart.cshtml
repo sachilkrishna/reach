@@ -1,0 +1,15 @@
+﻿@model Reach.Models.ProductModel
+
+@{
+    ViewBag.Title = "DisplayEmptyCart";
+}
+
+<h2>View</h2>
+
+<div class="container jumbotron">
+    <h1> cart is Empty :) </h1>
+    <br />
+   
+    <h2> @Html.ActionLink("Start Shopping", "HomePage", "Search", new { area = "" }, new { @class = "nav-link" })</h2>
+
+</div>

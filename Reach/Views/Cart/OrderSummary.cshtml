@@ -1,0 +1,128 @@
+﻿@model Reach.Models.AddressModel
+    @using Reach.Models
+
+@{
+    ViewBag.Title = "OrderSummary";
+}
+
+<h2>Order Summary:</h2>
+
+<div>
+    <hr />
+    <form action="/Order/PlaceOrder" method="post">
+
+        <div class="row">
+            <div class="col-1">
+
+            </div>
+            <div class=" col-3">
+                <h5>Shipping Address : </h5>
+
+                @*@Html.DisplayNameFor(model => model.Fname)*@
+
+                @Html.DisplayFor(model => model.Fname)
+
+                @*@Html.DisplayNameFor(model => model.Lname)*@
+
+                @Html.DisplayFor(model => model.Lname) <br />
+
+                @*@Html.DisplayNameFor(model => model.Phone)*@
+
+                @*  @Html.DisplayFor(model => model.Phone)<br />*@
+
+                @*@Html.DisplayNameFor(model => model.AltPhone)*@
+
+                @*@Html.DisplayFor(model => model.AltPhone)<br />*@
+
+                @*@Html.DisplayNameFor(model => model.Address)*@
+
+                @Html.DisplayFor(model => model.Address) <br />
+
+                @*@Html.DisplayNameFor(model => model.City)*@
+
+                @Html.DisplayFor(model => model.City) ,
+
+                @*@Html.DisplayNameFor(model => model.State)*@
+
+                @Html.DisplayFor(model => model.State), <br />
+
+                @*@Html.DisplayNameFor(model => model.Pincode)*@
+
+                @Html.DisplayFor(model => model.Pincode)
+                <br />
+                <a href="~/Customer/ShowAvailableAddresses">change Shipping Address</a>
+            </div>
+            <div class="col-7">
+                <h5>Product Summary:</h5>
+                <table class="table">
+                    @{
+                        double total = 0;
+                        IEnumerable<ProductModel> ie = Session["ie"] as IEnumerable<ProductModel>;
+                        foreach (var item in ie)
+                        {
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(modelItem => item.ProductID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(modelItem => item.ProductName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(modelItem => item.Rate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(modelItem => item.RequiredQuantity)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(modelItem => item.Amount)
+
+                                </th>
+                            </tr>
+                            total = item.SubTotal;
+                            break;
+                        }
+                        foreach (var item in ie)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Rate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RequiredQuantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+
+                            <td colspan="3"></td>
+                            <td>
+                                <strong>Total :</strong>
+                            </td>
+                            <td>
+                                @total
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <div class="text-right">
+                    <br />
+                    <input type="submit" name="placeOrderBtn" value="Place Order" class="btn btn-success btn-lg" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")*@
+</p>

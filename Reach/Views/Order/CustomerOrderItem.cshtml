@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Customer Order Item";
+}
+
+<div class="container">
+    <div class="text-right">
+        @Html.ActionLink("Log OUT", "LogOut", "Login", new { }, new { })
+    </div>
+
+    <h2>    @Html.ActionLink("My Orders", "CustomerOrder", "Order", new { }, new { })</h2>
+    <h2>Current Order Items</h2>
+
+    <table class="table OrderItemTable">
+        <thead>
+            <tr>
+                <th>OrderId</th>
+                <th>OrderItemId</th>
+                <th>ProductName</th>
+                <th>Quantity</th>
+                <th>ListPrice</th>
+                <th>Discount</th>
+                <th>OrderStatus</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(function () {
+        $.getJSON("/Order/GetOrderItems", function (data) {
+            debugger
+            $(".OrderItemTable").DataTable({
+                "data": data,
+                'scrollY': 300,
+                "columnDefs": [{
+                    "targets": 2,
+                    "render": function (data, type, row) {
+                        return '<a href=/Search/DisplayProduct?Pid=' + row["ProductId"] + '>' + row["ProductName"] + '</a>';
+                    }
+                }],
+                "columns": [
+                    { "data": "OrderId" },
+                    { "data": "OrderItemId" },
+                    { "data": "ProductName" },
+                    { "data": "Quantity" },
+                    { "data": "ListPrice" },
+                    { "data": "Discount" },
+                    { "data": "OrderStatus" }
+                ]
+            })
+        })
+       
+    })
+
+</script>
+

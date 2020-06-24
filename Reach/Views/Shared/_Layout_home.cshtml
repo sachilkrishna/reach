@@ -1,0 +1,86 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>@ViewBag.Title -Hello, world!</title>
+</head>
+<body>
+    <div style="background-image: url(https://images5.alphacoders.com/306/306120.jpg);background-size:cover;background-position-y:center;background-color: #cccccc;height:400px;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent ">
+            <a class="navbar-brand" A href="/Search/HomePage">
+                <img src="https://images.squarespace-cdn.com/content/52a35b0fe4b0e77c563d0096/1573599469305-F0EC0MDM6NDHZFHMZ0YN/reach.png?format=1500w&content-type=image%2Fpng" width="120" height="30" class="d-inline-block align-top  mt-lg-AUTO" alt="">
+                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" })*@
+            </a>
+
+            <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <div class="collapse navbar-collapse  " id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto my-lg-auto">
+                    <li class="nav-item">@Html.ActionLink("Home", "HomePage", "Search", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Show", "SearchProduct", "Search", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("User Account", "LandingPage", "Account", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+                @*<form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2 mb-auto " type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-primary my-2 my-sm-0 mx-lg-1" type="submit">Search</button>
+                </form>
+            </div>
+            <a class="navbar-nav" A href="/Home/Index">
+                <img src="https://www.designfreelogoonline.com/wp-content/uploads/2016/07/000749-online-store-logos-design-free-online-E-commerce-cart-logo-maker-06.png" width="50" height="30" class="d-inline-block align-top  mt-lg-AUTO " alt="">
+            </a>*@
+
+                <form action="~/Search/SearchProduct" method="post" class="form-inline my-2 my-lg-0" id="Navform1">
+                   @* <select name="NavCategory" id="NavCategory" label="NavCategory" class="form-control custom-select bg-info btn-outline-primary"></select>*@
+                    <input class="form-control mr-sm-2 mb-auto " name="NavKey" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-primary my-2 my-sm-0 mx-lg-1" type="submit">Search</button>
+                </form>
+            </div>
+            <a class="navbar-nav" A href="/Cart/DisplayCart">
+                <img src="https://www.designfreelogoonline.com/wp-content/uploads/2016/07/000749-online-store-logos-design-free-online-E-commerce-cart-logo-maker-06.png" width="50" height="30" class="d-inline-block align-top  mt-lg-AUTO " alt="">
+            </a>
+        </nav>
+   
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <h1 style="color:white">    Pretend as if You Loved this Page.</h1>
+        <h2 style="color:white">TY. TY. :)</h2>
+    </div>
+
+
+
+
+    <div class=" body-content">
+        @RenderBody()
+        <hr />
+        <footer style="background-image: url(https://images5.alphacoders.com/306/306120.jpg);background-position-y:bottom;background-size: cover;height:200px;background-repeat:no-repeat ">
+            <p class="display-4 " style="color:whitesmoke">&copy; @DateTime.Now.Year - Application REACH</p>
+        </footer>
+    </div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    @*@RenderSection("scripts", required: false)*@
+</body>
+</html>
+
+
+

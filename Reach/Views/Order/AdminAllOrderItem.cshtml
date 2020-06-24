@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "AdminOrderItem";
+}
+
+<div class="container">
+    <div class="text-right">
+        @Html.ActionLink("Log OUT", "LogOut", "Login", new { }, new { })
+    </div>
+
+    <h2>    @Html.ActionLink("All Orders", "AdminOrder", "Order", new { }, new { })</h2>
+    <h2>AdminOrderItem</h2>
+
+    <table class="table OrderItemTable">
+        <thead>
+            <tr>
+                <th>OrderId</th>
+                <th>OrderItemId</th>
+                <th>ProductId</th>
+                <th>ListPrice</th>
+                <th>Discount</th>
+                <th>OrderStatus</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(function () {
+        $.getJSON("/Order/GetAllOrderItems", function (data) {
+            $(".OrderItemTable").DataTable({
+                "data": data,
+                "columns": [
+                    { "data": "OrderId" },
+                    { "data": "OrderItemId" },
+                    { "data": "ProductId" },
+                    { "data": "ListPrice" },
+                    { "data": "Discount" },
+                    { "data": "OrderStatus" }
+                ]
+            })
+        })
+       
+    })
+
+</script>
+

@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "CustomerLandingPage";
+}
+
+
+
+<div class="container">
+    <h2>Hi @ViewBag.CustomerFName </h2>
+    <div class="text-right">
+        @Html.ActionLink("Log OUT", "LogOut", "Login", new { }, new { })
+    </div>
+    @*<h3>
+            @Html.ActionLink("AllOrders", "AdminOrder", "Order", new { }, new { })
+        </h3>*@
+    <h2>    @Html.ActionLink("My Orders", "CustomerOrder", "Order", new { }, new { })</h2>
+
+    <a href="~/Customer/CustomerAddresses">My Addresses</a>
+    <a href="~/Customer/CustomerAddresses">My Wishlist</a>
+</div>

@@ -1,0 +1,125 @@
+﻿@using Reach.Models
+@model Reach.Models.ProductModel
+
+@{
+    ViewBag.Title = "View";
+}
+
+
+<div>
+    <h4>ProductModel</h4>
+    <hr />
+    <div class="row">
+        <div class="col">
+            
+            <img src="@Model.Images" class="img-fluid" alt="Responsive image">
+            @*<img src="https://image.cnbcfm.com/api/v1/image/105680013-1547583426762nike1.jpg?v=1547583682&w=678&h=381" class="img-fluid" alt="Responsive image">*@
+        </div>
+        <div class="col">
+            @using (Html.BeginForm("AddtoCart", "Cart", new { Pid=Model.ProductID },FormMethod.Post))
+            {
+                <dl class="dl-horizontal">
+                    <h1>
+                        @*<dt>
+                            @Html.DisplayNameFor(model => model.ProductName)
+                        </dt>*@
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ProductName)
+                        </dd>
+
+                    </h1>
+
+                    <dd>
+                        @Html.DisplayNameFor(model => model.ProductID):  @Html.DisplayFor(model => model.ProductID)
+                    </dd>
+
+
+                    <h5>
+                        @*<dt>
+                            @Html.DisplayNameFor(model => model.DescriptionShort)
+                        </dt>*@
+
+                        <dd>
+                            @Html.DisplayFor(model => model.DescriptionShort)
+                        </dd>
+                    </h5>
+
+
+                    <h4>
+                        @*<dt>
+                            @Html.DisplayNameFor(model => model.SellingPrice)
+                        </dt>*@
+
+                        <dd>
+                           Rs. @Html.DisplayFor(model => model.Rate)
+                        </dd>
+
+                    </h4>
+
+                </dl>
+                <p id="Availability"></p>
+                <h4 id="Quantity">Quantity: @Html.TextBoxFor(model => model.RequiredQuantity, new { @type = "number", @min = "1", @max= Model.RemainingQuantity}) </h4>
+                @*<input type="number" name="name" value="1" min="1" max="10" class="dropdown-item" style="width:80px" width="100" />*@
+                @*@Html.ActionLink("Add To cart", "AddtoCart", "Cart", new { Pid=Model.ProductID, RequiredQuantity=Model.RequiredQuantity },new { @class="btn" })*@
+                @*<input type="button" name="AddtoCart" class="btn btn-success" value="Add to Cart" onclick="AddToCart(@Model.ProductID,$("#RequiredQuantity").text())" />*@
+                <input type="submit" id="submitbtn"  name="AddtoCart" class="btn btn-success" value="Add to Cart"/>
+                <input type="button" id="WishList" name="AddtoWishList" class="btn btn-light " style="background-color:darkcyan" value="Add to Wish List" onclick="AddToWishList(@Model.ProductID)" />
+            }
+
+
+        </div>
+    </div>
+    <h4>
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.DescriptionLong)
+            </dt>
+
+            <dd >
+                @Html.DisplayFor(model => model.DescriptionLong)
+            </dd>
+
+        </dl>
+
+
+    </h4>
+
+
+</div>
+
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")*@
+    @Html.TextBoxFor(model => model.RemainingQuantity, new { })
+</p>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#RemainingQuantity').attr('class', "invisible")
+        //$('#RemainingQuantity').attr('style', "visibility:hidden")
+        var RemQuan = $('#RemainingQuantity').val()
+        if (RemQuan> 0) {
+            $('#Availability').html('<h4 style="color: forestgreen">Availiable</h4>')
+            //$('#RequiredQuantity').attr('max',RemQuan)
+        } else {
+            $('#Availability').html('<h4 style="color:gray">Out of Stock</h4>')
+            $('#Quantity').attr('class', 'invisible')
+            $('#submitbtn').attr('disabled','')
+        }
+
+        //$('#WishList').val()
+    })
+
+    function AddToCart(e,a) {
+        var url = "" + e+a;
+        alert(url);
+        //window.location.href = url;
+    }
+    function AddToWishList(e) {
+        var url = "/Customer/AddToWishList?Pid=" + e;
+        window.location.href = url;
+        alert("Item Added to your Wish List");
+        window.location.href = history.go(-1);
+    }
+</script>

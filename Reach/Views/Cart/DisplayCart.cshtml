@@ -1,0 +1,152 @@
+﻿@model IEnumerable<Reach.Models.ProductModel>
+
+@{
+    ViewBag.Title = "DisplayCart";
+}
+
+<h2>DisplayCart</h2>
+@*<form action="/Cart/CheckOut" method="post">*@
+<form action="/Cart/OrderSummary" method="post">
+    <div class="row">
+        <div class="col-xl-8">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Rate)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.RequiredQuantity)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Amount)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @{
+                    int i = 0;
+
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductID)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductName)
+                            </td>
+
+                            <td id="Rate+@i">
+
+                                @Html.DisplayFor(modelItem => item.Rate, new { @id = "Rate" + i })
+                            </td>
+
+                            <td id="RequiredQuantity+@i">
+                                @Html.TextBoxFor(modelItem => item.RequiredQuantity, new { @type = "number", @min = "1", @max = item.RemainingQuantity, @onchange = "editCart(" + item.ProductID + ")", @id = "RequiredQuantity" + item.ProductID })
+                            </td>
+                            <td id="Amount+@i">
+                                @Html.DisplayFor(modelItem => item.Amount)
+                                @*  @Html.TextBoxFor(modelItem => item.Amount,new { @readonly= "readonly", @class="border-0" , @style="width:20px", @id = "Amount" + i })*@
+                                @*<input type="text" name="name" readonly="readonly" value="" style="width: "/>*@
+                            </td>
+                            <td>
+                                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                                @Html.ActionLink("Remove", "RemoveFromCart", new { @Pid = item.ProductID/* id=item.PrimaryKey */ })
+                            </td>
+                        </tr>
+                        i = i + 1;
+                    }
+
+                }
+
+            </table>
+
+        </div>
+        <div class="col">
+            @foreach (var item in Model)
+            {
+                <dl>
+
+                    <dd>
+                        <strong> @Html.DisplayNameFor(modelItem => modelItem.SubTotal) </strong> :    @Html.DisplayFor(modelItem => item.SubTotal)
+                    </dd>
+                </dl>
+                break;
+            }
+            <input type="submit" name="cartBtn" value="Proceed to Check Out" class="btn btn-success " />
+            @*@Html.ActionLink("Proceed to Check Out", "Guest", "Login", new { }, new { @class = "btn btn-success " })*@
+            @Html.ActionLink("Continue Shopping", "HomePage", "Search", new { }, new { @class = "btn btn-success " })
+        </div>
+
+    </div>
+</form>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    var length= @Model.Count();
+    $(function () {
+        //alert('ready');
+        //alert("@Model.Count()");
+        debugger
+        //$(window).on('load', function () {
+        //    alert("loaded");
+        //    for (var i = 0; i < length; i++) {
+        //        alert('#RequiredQuantity' + i);
+        //        var ReqQuan = $('#RequiredQuantity' + i).val()
+        //        var PRate = $('#Rate' + i).val()
+        //        var result1 = parseFloat(ReqQuan) * parseFloat(PRate)
+        //        $('#Amount' + i).html(result1)
+        //        alert(result1);
+        //    }
+        //})
+        //for (var i = 0; i < length; i++) {
+        //    alert('#RequiredQuantity+' + i);
+        //    var ReqQuan = $('#RequiredQuantity+'+i).text()
+        //    var PRate = $('#Rate+'+i).text()
+        //    var result1 = parseFloat(ReqQuan) * parseFloat(PRate)
+        //    $('#Amount+' + i).text(result1)
+
+        //    alert(result1);
+
+        //}
+
+            @*$.each(@Model, function (item) {
+                var ReqQuan = item.RequiredQuantity
+                var PRate = item.Rate
+                var result1 = ReqQuan * PRate
+                alert(" "+result1);
+            })*@
+        //var result = function () {
+        //    var ReqQuan = $('#RequiredQuantity').val()
+        //    var PRate = $('#Rate').val()
+        //    var result1 = ReqQuan * PRate
+        //    alert(result1);
+        //    return result1;
+
+        //}
+
+        //$('#Amount').val(result)
+
+    })
+
+    function editCart(e) {
+        var a=$("#RequiredQuantity" + e).val()
+        //alert(e+","+a);
+        var url = "/Cart/EditCart?Pid=" + e +"&RequiredQuantity="+a;
+        window.location.href = url
+
+        event.preventDefault()
+    }
+
+
+</script>

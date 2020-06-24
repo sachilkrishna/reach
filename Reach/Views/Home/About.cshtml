@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide additional information.</p>
+
+<div class="container">
+    <div class="text-right">
+        @Html.ActionLink("Log IN", "Guest", "Login", new { }, new { })
+    </div>
+
+    <div class="text-right">
+        @Html.ActionLink("Log OUT", "LogOut", "Login", new { }, new { })
+    </div>
+    <h3>
+        @Html.ActionLink("AllOrders", "AdminOrder", "Order", new { }, new { })
+    </h3>
+
+    <h5>
+        @Html.ActionLink("AllOrderItems", "AdminAllOrderItem", "Order", new { }, new { })
+    </h5>
+    <h5>
+        @Request.RawUrl
+        <br />
+        <br />
+        <br />
+        @Request.UrlReferrer
+        <br />
+                @Request.UrlReferrer.AbsoluteUri
+    </h5>
+    <h6>
+        <a href="@Request.RawUrl">content</a>
+        @*@{ 
+
+            if (@Request.UrlReferrer.AbsoluteUri != Request.RawUrl)
+            {
+                string ReturnUrl1 = @Request.UrlReferrer.AbsoluteUri;
+            }
+        }*@
+        <a href="#" class="btn btn-outline-danger" onclick="history.go(-1)">cancel and go back</a>
+        @*<a href="@Request.UrlReferrer.AbsoluteUri">cancel and go back</a>*@
+    </h6>
+    @*<h5>
+        @Request.Url.OriginalString
+        <br />
+        @Request.Url.ToString()
+        <br />  
+        @Request.Url.AbsoluteUri
+    </h5>*@
+
+</div>
